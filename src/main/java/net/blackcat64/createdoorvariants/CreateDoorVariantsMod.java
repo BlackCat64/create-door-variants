@@ -1,6 +1,9 @@
 package net.blackcat64.createdoorvariants;
 
 import com.mojang.logging.LogUtils;
+import com.simibubi.create.AllItems;
+import net.blackcat64.createdoorvariants.block.ModBlocks;
+import net.blackcat64.createdoorvariants.item.ModItems;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.food.FoodProperties;
@@ -32,21 +35,15 @@ public class CreateDoorVariantsMod {
     public static final String MODID = "create_door_variants";
     private static final Logger LOGGER = LogUtils.getLogger();
 
-    public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, MODID);
-    public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, MODID);
-    public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, MODID);
-    public static final RegistryObject<CreativeModeTab> DOORS_TAB = CREATIVE_MODE_TABS.register("doors_tab", () -> CreativeModeTab.builder().icon(() -> Items.ACACIA_DOOR.getDefaultInstance()).displayItems((parameters, output) -> {
-        output.accept(Items.ACACIA_DOOR);
-    }).build());
 
     public CreateDoorVariantsMod() {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
         modEventBus.addListener(this::commonSetup);
 
-        BLOCKS.register(modEventBus);
-        ITEMS.register(modEventBus);
-        CREATIVE_MODE_TABS.register(modEventBus);
+        ModBlocks.register(modEventBus);
+        ModItems.register(modEventBus);
+        ModCreativeTabs.register(modEventBus);
 
         MinecraftForge.EVENT_BUS.register(this);
     }
