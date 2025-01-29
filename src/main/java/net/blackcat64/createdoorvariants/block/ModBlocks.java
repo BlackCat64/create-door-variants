@@ -19,21 +19,16 @@ import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
-
+import static net.blackcat64.createdoorvariants.CreateDoorVariantsMod.MOD_REGISTRATE;
 import java.util.function.Supplier;
-
-import static com.simibubi.create.Create.REGISTRATE;
 
 
 public class ModBlocks {
     public static final DeferredRegister<Block> BLOCKS =
             DeferredRegister.create(ForgeRegistries.BLOCKS, CreateDoorVariantsMod.MODID);
 
-    public static final CreateRegistrate MOD_REGISTRATE = CreateRegistrate.create(CreateDoorVariantsMod.MODID)
-            .defaultCreativeTab((ResourceKey<CreativeModeTab>) null);
-
     public static final BlockEntry<SlidingDoorBlock> WHITE_TRAIN_DOOR =
-            REGISTRATE.block("white_train_door", p -> SlidingDoorBlock.metal(p, false))
+            MOD_REGISTRATE.block("white_train_door", p -> SlidingDoorBlock.metal(p, false))
                     .transform(BuilderTransformers.slidingDoor("white_train"))
                     .properties(p -> p.mapColor(MapColor.TERRACOTTA_CYAN)
                             .sound(SoundType.NETHERITE_BLOCK)
@@ -52,5 +47,8 @@ public class ModBlocks {
     }
     public static void register(IEventBus eventBus) {
         BLOCKS.register(eventBus);
+    }
+    public static void register() {
+
     }
 }

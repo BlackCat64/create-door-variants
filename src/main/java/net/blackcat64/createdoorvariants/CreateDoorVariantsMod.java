@@ -2,10 +2,13 @@ package net.blackcat64.createdoorvariants;
 
 import com.mojang.logging.LogUtils;
 import com.simibubi.create.AllItems;
+import com.simibubi.create.foundation.data.CreateRegistrate;
 import net.blackcat64.createdoorvariants.block.ModBlocks;
+import net.blackcat64.createdoorvariants.block.entity.ModBlockEntities;
 import net.blackcat64.createdoorvariants.item.ModItems;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.Block;
@@ -35,13 +38,20 @@ public class CreateDoorVariantsMod {
     public static final String MODID = "create_door_variants";
     private static final Logger LOGGER = LogUtils.getLogger();
 
+    public static final CreateRegistrate MOD_REGISTRATE = CreateRegistrate.create(CreateDoorVariantsMod.MODID)
+            .defaultCreativeTab((ResourceKey<CreativeModeTab>) null);
+
 
     public CreateDoorVariantsMod() {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
         modEventBus.addListener(this::commonSetup);
 
-        ModBlocks.register(modEventBus);
+        MOD_REGISTRATE.registerEventListeners(modEventBus);
+
+        ModBlocks.register();
+        ModBlockEntities.register();
+
         ModItems.register(modEventBus);
         ModCreativeTabs.register(modEventBus);
 
